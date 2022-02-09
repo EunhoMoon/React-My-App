@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // concat, filter, map, slice, spread(전개) 연산자
+
+      console.log('1.============= 스프레드 연산자'); // 복제
+      const a = [1, 2, 3];
+      const b = [...a]; // [1, 2, 3] -> 깊은 복사
+      b.push(4); // push : 기존 배열의 값을 수정 = b의 데이터 변경
+      console.log(`a의 값은 : ${a}`); // 1,2,3
+      console.log(`b의 값은 : ${b}`); // 1,2,3,4
+      console.log('');
+
+      console.log('2.============= 추가하기'); // 추가
+      const a2 = [1, 2, 3];
+      const b2 = a2.concat(4);
+      console.log(`a2의 값은 : ${a2}`); // 1,2,3
+      console.log(`b2의 값은 : ${b2}`); // 1,2,3,4
+      const c = [0, ...a, 4];
+      console.log(`c의 값은 : ${c}`); // 0, 1, 2, 3, 4 => spread 연산자를 사용해 concat과 동일한 효과
+      console.log('');
+
+      console.log('3.============= 걸러내기'); // 삭제
+      const a3 = [1, 2, 3];
+      const b3 = a3.filter((n) => {
+        return n != 1;
+      });
+      // filter()함수는 boolean을 return 받는다. -> true만 걸러낸다.
+      console.log(`b3의 값은 : ${b3}`); // 2,3
+      console.log('');
+
+      console.log('4.============= 잘라내기');
+      const a4 = [1, 2, 3];
+      const b4 = a4.slice(0, 2); // 0번 index 부터 2번 index - 1 까지
+      console.log(b4); // 1, 2 -> [1, 2]
+      const c4 = [...a4.slice(0, 2), 4, ...a4.slice(2)];
+      console.log(c4); // 1, 2 -> [[1, 2]]
+      console.log('');
+
+      console.log('5.============= 반복하기');
+      const a5 = [1, 2, 3];
+      // a5.forEach((n) => {
+      //   console.log(n + '번 반복');
+      // }); // 리턴 못함
+      const b5 = a5.map((n) => n + 10); // spread와 같지만, 값을 가공할 수 있다.
+      console.log(b5);
+      console.log('');
+
+      console.log('6.============= 덮어씌우기');
+      const users = [
+        { id: 1, name: '홍길동', phone: '010-1111-1111' },
+        { id: 2, name: '전우치', phone: '010-1111-1112' },
+        { id: 3, name: '임꺽정', phone: '010-1111-1113' },
+      ];
+
+      const a6 = users[1];
+      let data = { name: '고길동' };
+      const b6 = { ...a6, ...data };
+      // 복제한 다른 값(id)은 그대로 두고, name 값만 변경 -> 뒤에 있는 값이 앞의 값을 덮어 씌운다.
+      console.log(b6);
+
+      const updateUserDto = { id: 3, name: '희동이' };
+
+      const newUsers = users.map((user) =>
+        user.id === updateUserDto.id ? { ...user, ...updateUserDto } : user,
+      ); // users안의 user 중 id가 updateUserDto와 같으면 그 값을 updateUserDto로 덮어쓴다.
+      console.log(newUsers);
+    </script>
+  </body>
+</html>
